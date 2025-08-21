@@ -47,7 +47,7 @@ public class StandAloneTestpractice {
 		WebElement expiryDateDropdown2=driver.findElement(By.xpath("(//select[@class='input ddl'])[2]"));
 		Select dropdownexpirydate=new Select(expiryDateDropdown2);
 		dropdownexpirydate.selectByIndex(8);
-		
+		System.out.println("Hello");
 		
 		//driver.close();
 		
