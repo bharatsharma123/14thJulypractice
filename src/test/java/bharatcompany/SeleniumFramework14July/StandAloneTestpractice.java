@@ -48,6 +48,7 @@ public class StandAloneTestpractice {
 		Select dropdownexpirydate=new Select(expiryDateDropdown2);
 		dropdownexpirydate.selectByIndex(8);
 		System.out.println("Hello");
+		System.out.println("Hello2");
 		
 		//driver.close();
 		
