@@ -10,12 +10,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class StandAloneTestpractice {
 
-	public static void main(String[] args) {
+	@Test
+	public void endtoend() {
 		// TODO Auto-generated method stub
 		String zaraexpected="ZARA COAT 3";
 		WebDriverManager.chromedriver().setup();
@@ -23,7 +26,7 @@ public class StandAloneTestpractice {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.get("https://rahulshettyacademy.com/client/#/auth/login");
 		driver.manage().window().maximize();
-		
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(8));
 		driver.findElement(By.xpath("//input[@id='userEmail']")).sendKeys("mebharatbhardwaj@gmail.com");
 		driver.findElement(By.xpath("//input[@id='userPassword']")).sendKeys("Swift@0527");
 		driver.findElement(By.xpath("//input[@id='login']")).click();
@@ -35,7 +38,7 @@ public class StandAloneTestpractice {
 		}
 		//List<WebElement> buttons=driver.findElements(By.xpath("//div[@class='card-body']/button[text()=' Add To Cart']"));
 		//System.out.println(buttons.size());WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(8));
-		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(8));
+		
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='toast-bottom-right toast-container']")));
 		driver.findElement(By.xpath("//button[@routerlink='/dashboard/cart']")).click();
 		
@@ -47,9 +50,15 @@ public class StandAloneTestpractice {
 		WebElement expiryDateDropdown2=driver.findElement(By.xpath("(//select[@class='input ddl'])[2]"));
 		Select dropdownexpirydate=new Select(expiryDateDropdown2);
 		dropdownexpirydate.selectByIndex(8);
-		System.out.println("Hello");
-		System.out.println("Hello2");
 		
+		//Select country dropdown
+		driver.findElement(By.xpath("//input[@placeholder='Select Country']")).sendKeys("India");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//section[@class='ta-results list-group ng-star-inserted']")));
+		driver.findElement(By.xpath("(//button[@type='button'])[2]")).click();
+		driver.findElement(By.xpath("//a[@class='btnn action__submit ng-star-inserted']")).click();
+		
+		String confirmMessage=driver.findElement(By.cssSelector(".hero-primary")).getText();
+		Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 		//driver.close();
 		
 		
